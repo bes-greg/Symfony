@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Anime index{% endblock %}
+
+{% block body %}
+    <h1>Anime index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Image</th>
+                <th>Author</th>
+                <th>Date</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for anime in animes %}
+            <tr>
+                <td>{{ anime.id }}</td>
+                <td>{{ anime.name }}</td>
+                <td>{{ anime.description }}</td>
+                <td>{{ anime.image }}</td>
+                <td>{{ anime.author }}</td>
+                <td>{{ anime.date ? anime.date|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_anime_show', {'id': anime.id}) }}">show</a>
+                    <a href="{{ path('app_anime_edit', {'id': anime.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_anime_new') }}">Create new</a>
+{% endblock %}
