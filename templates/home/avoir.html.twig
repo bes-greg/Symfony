@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes Animes À Voir - AnimeView{% endblock %}
+
+{% block body %}
+    <header>
+        <div class="pages">
+            <h2>AnimeView</h2>
+            {% if app.user %}
+                <a href="{{ path('app_home') }}">Accueil</a>
+                <a href="{{ path('app_home_aVoir') }}">Animes à voir</a>
+                <a href="{{ path('app_home_vu')}}">Animes vus</a>
+            {% endif %}
+        </div>
+        <div class="nav">
+            {% if app.user %}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path("app_anime_index") }}">Espace admin</a>
+                {% endif %}
+                <a href="{{ path('app_logout')}}">Se déconnecter</a>
+            {% else %}
+                <a href="{{ path('app_login') }}">Se connecter</a>
+                <a href="{{ path('app_register')}}">S'inscrire</a>
+            {% endif %}
+        </div>
+    </header>
+
+    <h1 class="title">Animes à voir</h1>
+    <div class="animeGrid">
+            {% for anime in animes %}
+                <div class="animeCard"  data-id="{{ anime.id }}">
+                    {% if anime.image %}
+                        <img src="{{ asset(anime.image) }}" alt="{{ anime.name }}" class="animeCardImage">
+                    {% endif %}
+
+                    <div class="animeCardText">
+                        <h3 class="animeCardName">{{ anime.name }}</h3>
+                        <p class="animeCardDesc">{{ anime.description|slice(0, 80) }}...</p>
+                    </div>
+                </div>
+            {% else %}
+                <p>Tu n'as aucun anime dans ta liste "à voir" pour le moment.</p>
+            {% endfor %}
+        </div>
+    <!-- La modale intégrée -->
+    <div id="animeOverlay">
+        <div id="animeModal">
+            <button id="animeModalClose">&times;</button>
+            <h2 id="animeModalTitle">Chargement...</h2>
+            <div id="animeModalContent">
+                <div id="animeModalImageBloc">
+                    <img id="animeModalImage" src="" alt="Affiche">
+                </div>
+                <div id="animeModalTextBloc">
+                    <p><strong>Auteur :</strong> <span id="modal-author"></span></p>
+                    <p><strong>Date :</strong> <span id="modal-date"></span></p>
+                    <hr>
+                    <p id="animeModalDesc"></p>
+
+                    <div id="modalActions" style="margin-top: 20px; display: flex; gap: 10px;">
+                        <form id="modalFormVu" method="POST">
+                            <button type="submit" class="animeCardBtn" style="background-color: #28a745;">Marquer comme Vu</button>
+                        </form>
+                        <form id="modalFormAVoir" method="POST">
+                            <button type="submit" class="animeCardBtn" style="background-color: #17a2b8;">À voir</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -147,7 +147,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return Collection<int, AnimeAVoir>
      */
-    public function getAnimeAVoirs(): Collection
+    public function getAnimeAVoir(): Collection
     {
         return $this->animeAVoirs;
     }

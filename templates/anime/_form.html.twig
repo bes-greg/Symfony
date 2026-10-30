@@ -1,4 +1,36 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_start(form, {'attr': {'class': 'loginForm'}}) }}
+{# S'il y a des erreurs globales sur le formulaire #}
+    {{ form_errors(form) }}
+
+<div class="loginFormLabelInput">
+{{ form_label(form.name, 'Nom', {'label_attr': {'class': 'loginFormLabel'}}) }}
+{{ form_widget(form.name, {'attr': {'class': 'loginFormInput'}}) }}
+{{ form_errors(form.name) }}
+</div>
+
+<div class="loginFormLabelInput">
+{{ form_label(form.description, 'Description', {'label_attr': {'class': 'loginFormLabel'}}) }}
+{{ form_widget(form.description, {'attr': {'class': 'loginFormInput', 'rows': '4'}}) }}
+{{ form_errors(form.description) }}
+</div>
+
+<div class="loginFormLabelInput">
+{{ form_label(form.image, 'Image', {'label_attr': {'class': 'loginFormLabel'}}) }}
+{{ form_widget(form.image, {'attr': {'class': 'loginFormInput'}}) }}
+{{ form_errors(form.image) }}
+</div>
+
+<div class="loginFormLabelInput">
+{{ form_label(form.author, 'Auteur', {'label_attr': {'class': 'loginFormLabel'}}) }}
+{{ form_widget(form.author, {'attr': {'class': 'loginFormInput'}}) }}
+{{ form_errors(form.author) }}
+</div>
+
+<div class="loginFormLabelInput">
+{{ form_label(form.date, 'Date', {'label_attr': {'class': 'loginFormLabel'}}) }}
+{{ form_widget(form.date, {'attr': {'class': 'loginFormInput'}}) }}
+{{ form_errors(form.date) }}
+</div>
+
+<button class="loginFormBtn" type="submit">{{ button_label|default('Enregistrer') }}</button>
 {{ form_end(form) }}

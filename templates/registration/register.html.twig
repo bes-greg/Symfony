@@ -1,20 +1,41 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}S'inscrire - AnimeView{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+    <div class="loginFormDiv">
+        {{ form_start(registrationForm, {'attr': {'class': 'loginForm'}}) }}
+        <h1 class="loginFormTitle">S'inscrire</h1>
 
-    {{ form_errors(registrationForm) }}
+        {# Affichage des erreurs globales s'il y en a #}
+        {{ form_errors(registrationForm) }}
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-    {{ form_row(registrationForm.name) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+        <div class="loginFormLabelInput">
+            {{ form_label(registrationForm.email, 'Email', {'label_attr': {'class': 'loginFormLabel'}}) }}
+            {{ form_widget(registrationForm.email, {'attr': {'class': 'loginFormInput', 'autocomplete': 'email'}}) }}
+            {{ form_errors(registrationForm.email) }}
+        </div>
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+        <div class="loginFormLabelInput">
+            {{ form_label(registrationForm.name, 'Nom', {'label_attr': {'class': 'loginFormLabel'}}) }}
+            {{ form_widget(registrationForm.name, {'attr': {'class': 'loginFormInput'}}) }}
+            {{ form_errors(registrationForm.name) }}
+        </div>
+
+        <div class="loginFormLabelInput">
+            {{ form_label(registrationForm.plainPassword, 'Mot de passe', {'label_attr': {'class': 'loginFormLabel'}}) }}
+            {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'loginFormInput', 'autocomplete': 'new-password'}}) }}
+            {{ form_errors(registrationForm.plainPassword) }}
+        </div>
+
+        <div style="margin: 15px 0;">
+            {{ form_widget(registrationForm.agreeTerms) }}
+            {{ form_label(registrationForm.agreeTerms, 'J\'accepte les conditions') }}
+            {{ form_errors(registrationForm.agreeTerms) }}
+        </div>
+
+        <button type="submit" class="loginFormBtn">S'inscrire</button>
+
+        {{ form_end(registrationForm) }}
+    </div>
 {% endblock %}

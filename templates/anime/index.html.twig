@@ -1,43 +1,47 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Anime index{% endblock %}
+{% block title %}AnimeView{% endblock %}
 
 {% block body %}
-    <h1>Anime index</h1>
+    <div class="crud-container">
+        <h1 class="crud-title">Liste des animes</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Image</th>
-                <th>Author</th>
-                <th>Date</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for anime in animes %}
-            <tr>
-                <td>{{ anime.id }}</td>
-                <td>{{ anime.name }}</td>
-                <td>{{ anime.description }}</td>
-                <td>{{ anime.image }}</td>
-                <td>{{ anime.author }}</td>
-                <td>{{ anime.date ? anime.date|date('Y-m-d') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_anime_show', {'id': anime.id}) }}">show</a>
-                    <a href="{{ path('app_anime_edit', {'id': anime.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <div class="table-responsive">
+            <table class="crud-table">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nom</th>
+                    <th>Description</th>
+                    <th>Image</th>
+                    <th>Auteur</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for anime in animes %}
+                    <tr>
+                        <td>{{ anime.id }}</td>
+                        <td class="table-name">{{ anime.name }}</td>
+                        <td>{{ anime.description|slice(0, 50) }}...</td>
+                        <td><img src="{{ asset(anime.image) }}" alt="{{ anime.name }}" class="table-img"></td>
+                        <td>{{ anime.author }}</td>
+                        <td>{{ anime.date ? anime.date|date('Y-m-d') : '' }}</td>
+                        <td class="table-actions">
+                            <a href="{{ path('app_anime_show', {'id': anime.id}) }}" class="action-link show">Voir</a>
+                            <a href="{{ path('app_anime_edit', {'id': anime.id}) }}" class="action-link edit">Modifier</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="7" class="table-empty">No records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
-    <a href="{{ path('app_anime_new') }}">Create new</a>
+        <a href="{{ path('app_anime_new') }}" class="animeCardBtn crud-create-btn">Ajouter un anime</a>
+    </div>
 {% endblock %}

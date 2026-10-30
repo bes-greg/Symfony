@@ -1,11 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Anime{% endblock %}
+{% block title %}Nouvel anime{% endblock %}
 
 {% block body %}
-    <h1>Create new Anime</h1>
+    <div class="loginFormDiv" style="flex-direction: column; gap: 20px; padding: 40px 0;">
+        <h1 class="loginFormTitle">Créer un anime</h1>
 
-    {{ include('anime/_form.html.twig') }}
+        {{ include('anime/_form.html.twig') }}
 
-    <a href="{{ path('app_anime_index') }}">back to list</a>
+        <a href="{{ path('app_anime_index') }}" style="color: #eee; text-decoration: none; font-weight: 600;">Retour à la liste</a>
+    </div>
 {% endblock %}
